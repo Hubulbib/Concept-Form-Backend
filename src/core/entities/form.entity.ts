@@ -1,4 +1,5 @@
 import { AnswerEntity } from './answer.entity.js'
+import { Layout } from './layout.entity.js'
 
 export class FormEntity {
   constructor(
@@ -7,6 +8,8 @@ export class FormEntity {
     readonly layout: Layout,
     readonly questions: Question[],
     readonly answers: AnswerEntity[],
+    readonly createdAt: Date,
+    readonly updatedAt: Date,
     readonly name?: string,
   ) {}
 }
@@ -19,13 +22,3 @@ export class Question {
 }
 
 // Layout page class
-interface Hierarchy {
-  root: HierarchyNode
-}
-interface HierarchyNode {
-  styles: Record<string, any>
-  children: Record<string, HierarchyNode>
-}
-export class Layout implements Hierarchy {
-  constructor(readonly root: HierarchyNode) {}
-}

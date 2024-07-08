@@ -1,14 +1,16 @@
 import express from 'express'
-//import { dbConnect } from './infrastructure/db'
+import { dbConnect } from './infrastructure/db'
 import 'dotenv/config.js'
 import cors from 'cors'
-//import { ErrorMiddleware } from './infrastructure/middlewares/errorMiddleware/error.middleware'
+import { formRouter } from './infrastructure/routers/form.router'
+import { answerRouter } from './infrastructure/routers/answer.router'
+import { ErrorMiddleware } from './infrastructure/middlewares/errorMiddleware/error.middleware'
 
 const app = express()
 const PORT = process.env.PORT
 
 // dbs
-//await dbConnect()
+await dbConnect()
 
 app.use(express.json())
 app.use(
@@ -21,8 +23,10 @@ app.use(
 // http://localhost:3000
 
 // API
+app.use('/api/form', formRouter)
+app.use('/api/answer', answerRouter)
 
-//app.use(ErrorMiddleware)
+app.use(ErrorMiddleware)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)

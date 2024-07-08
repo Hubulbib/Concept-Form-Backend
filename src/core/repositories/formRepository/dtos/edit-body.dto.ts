@@ -1,8 +1,9 @@
-import { Layout, Question } from '../../../entities/form.entity.js'
+import { Question } from '../../../entities/form.entity.js'
+import { LayoutItem } from '../../../entities/layout.entity.js'
 
 export class EditBodyDto {
   constructor(
-    readonly layout?: Layout,
+    readonly layout?: LayoutItem[],
     readonly questions?: Question[],
     readonly name?: string,
   ) {}
