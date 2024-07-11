@@ -7,7 +7,7 @@
     "target": "ES2018",
     "module": "ESNext",
     "lib": [
-      "ES6"
+      "ES6", "ESNext"
     ],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

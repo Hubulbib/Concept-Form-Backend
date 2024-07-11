@@ -5,6 +5,7 @@ import cors from 'cors'
 import { formRouter } from './infrastructure/routers/form.router'
 import { answerRouter } from './infrastructure/routers/answer.router'
 import { ErrorMiddleware } from './infrastructure/middlewares/errorMiddleware/error.middleware'
+import { setupSwagger } from './infrastructure/swagger'
 
 const app = express()
 const PORT = process.env.PORT
@@ -25,6 +26,8 @@ app.use(
 // API
 app.use('/api/form', formRouter)
 app.use('/api/answer', answerRouter)
+
+setupSwagger(app)
 
 app.use(ErrorMiddleware)
 
