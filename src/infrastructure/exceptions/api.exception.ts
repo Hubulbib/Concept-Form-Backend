@@ -14,4 +14,12 @@ export class ApiError extends Error {
   static BadRequest = (message: string, errors = []) => {
     return new ApiError(400, message, errors)
   }
+
+  static NotFound = (message: string = 'Ресурс не найден') => {
+    return new ApiError(404, message)
+  }
+
+  static NotAccess = (message: string = 'Нет доступа к ресурсу') => {
+    return new ApiError(403, message)
+  }
 }

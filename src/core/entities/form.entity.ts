@@ -20,5 +20,3 @@ export class Question {
     readonly text: string,
   ) {}
 }
-
-// Layout page class

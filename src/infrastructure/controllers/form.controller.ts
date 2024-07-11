@@ -39,7 +39,7 @@ class FormController {
     try {
       const formBody = req.body
       const formData = await this.formService.createOne({ ...formBody, userId: req.auth.user.uuid })
-      res.json(formData)
+      res.status(201).json(formData)
     } catch (err) {
       next(err)
     }
@@ -59,8 +59,8 @@ class FormController {
   removeOne = async (req: IAuthRequest, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params
-      const formData = await this.formService.removeOne(id, req.auth.user.uuid)
-      res.json(formData)
+      await this.formService.removeOne(id, req.auth.user.uuid)
+      res.end()
     } catch (err) {
       next(err)
     }

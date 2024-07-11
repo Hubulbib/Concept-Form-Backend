@@ -7,7 +7,7 @@ import { HierarchyLayout, HierarchyLayoutNode, Layout, LayoutItem } from '../ent
 export class FormService {
   constructor(private readonly formRepository: FormRepository) {}
 
-  getAll = async (userId: string): Promise<FormEntity[]> => {
+  getAll = async (userId: string): Promise<Omit<FormEntity, 'layout'>[]> => {
     return await this.formRepository.getAll(userId)
   }
 

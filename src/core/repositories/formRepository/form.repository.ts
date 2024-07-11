@@ -8,9 +8,9 @@ export interface FormRepository {
   getLayout: (formId: string) => Promise<Layout>
   createOne: (createBody: {
     layout: HierarchyLayout
-    readonly questions: Question[]
-    readonly name?: string
-    readonly userId: string
+    questions: Question[]
+    userId: string
+    name?: string
   }) => Promise<FormEntity>
   editOne: (formId: string, editBody: EditBodyDto, userId: string) => Promise<void>
   removeOne: (formId: string, userId: string) => Promise<void>

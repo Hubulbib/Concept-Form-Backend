@@ -13,10 +13,10 @@ export class FormRepositoryImpl implements FormRepository {
   async getOneById(formId: string, userId: string): Promise<Omit<FormEntity, 'layout'>> {
     const form = await this.formRepository.findOne({ formId }).exec()
     if (!form) {
-      throw ApiError.BadRequest('Данная форма не существует')
+      throw ApiError.NotFound('Данная форма не существует')
     }
     if (form.userId !== userId) {
-      throw ApiError.BadRequest('Данная форма не принадлежит вам')
+      throw ApiError.NotAccess('Данная форма не принадлежит вам')
     }
     return FormMapper.toDomain({
       ...this.getAllFields(form, ['layout']),
@@ -33,15 +33,16 @@ export class FormRepositoryImpl implements FormRepository {
       answerList.push(await new AnswerRepositoryImpl().getAll(i.formId))
     }
     let index = 0
-    return formList.map((el) => FormMapper.toDomain({ ...el.toObject(), answers: answerList[index++] }))
-    //return (await this.formRepository.find({ userId })).map((el) => FormMapper.toDomain(el))
+    return formList.map((el) =>
+      FormMapper.toDomain({ ...this.getAllFields(el, ['layout']), answers: answerList[index++] }),
+    )
   }
 
   async getLayout(formId: string): Promise<Layout> {
     const formById = await this.formRepository.findOne({ formId })
     const formByName = await this.formRepository.findOne({ name: formId })
     if (!formById && !formByName) {
-      throw ApiError.BadRequest('Данная форма не существует')
+      throw ApiError.NotFound('Данная форма не существует')
     }
     const form = formById || formByName
     return {
@@ -74,10 +75,10 @@ export class FormRepositoryImpl implements FormRepository {
   async editOne(formId: string, editBody: EditBodyDto, userId: string): Promise<void> {
     const form = await this.formRepository.findOne({ formId }).exec()
     if (!form) {
-      throw ApiError.BadRequest('Данная форма не существует')
+      throw ApiError.NotFound('Данная форма не существует')
     }
     if (form.userId !== userId) {
-      throw ApiError.BadRequest('Данная форма не принадлежит вам')
+      throw ApiError.NotAccess('Данная форма не принадлежит вам')
     }
     for (const i in editBody) {
       form[i] = editBody[i]
@@ -88,10 +89,10 @@ export class FormRepositoryImpl implements FormRepository {
   async removeOne(formId: string, userId: string): Promise<void> {
     const form = await this.formRepository.findOne({ formId }).exec()
     if (!form) {
-      throw ApiError.BadRequest('Такой формы не существует')
+      throw ApiError.NotFound('Такой формы не существует')
     }
     if (form.userId !== userId) {
-      throw ApiError.BadRequest('Данная форма не принадлежит вам')
+      throw ApiError.NotAccess('Данная форма не принадлежит вам')
     }
     await form.deleteOne()
   }

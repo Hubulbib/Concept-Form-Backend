@@ -9,7 +9,7 @@ class AnswerController {
     try {
       const answerBody = req.body
       const answerData = await this.answerService.createOne(answerBody)
-      res.json(answerData)
+      res.status(201).json(answerData)
     } catch (err) {
       next(err)
     }
