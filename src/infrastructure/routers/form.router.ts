@@ -125,11 +125,11 @@ router.post('/', [AuthMiddleware], formController.createOne)
  *         required: true
  *         description: The form ID
  *     requestBody:
- *       required: true
+ *       required: false
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/FormEntity'
+ *             $ref: '#/components/schemas/FormEditBodyDto'
  *     responses:
  *       200:
  *         description: The form was updated successfully

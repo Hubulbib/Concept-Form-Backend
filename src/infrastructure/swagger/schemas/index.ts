@@ -8,6 +8,7 @@ import { LayoutItem } from './layoutItem.schema'
 import { Question } from './question.schema'
 import { AnswerList } from './answerList.schema'
 import { AnswerCreateBodyDto } from './answer.createBodyDto.schema'
+import { FormEditBodyDto } from './form.editBodyDto.schema'
 
 export {
   AnswerEntity,
@@ -20,4 +21,5 @@ export {
   Question,
   FormEntityWithoutLayout,
   AnswerCreateBodyDto,
+  FormEditBodyDto,
 }

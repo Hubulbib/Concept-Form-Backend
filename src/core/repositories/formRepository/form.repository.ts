@@ -12,6 +12,14 @@ export interface FormRepository {
     userId: string
     name?: string
   }) => Promise<FormEntity>
-  editOne: (formId: string, editBody: EditBodyDto, userId: string) => Promise<void>
+  editOne: (
+    formId: string,
+    editBody: {
+      layout: HierarchyLayout
+      questions?: Question[]
+      name?: string
+    },
+    userId: string,
+  ) => Promise<void>
   removeOne: (formId: string, userId: string) => Promise<void>
 }
