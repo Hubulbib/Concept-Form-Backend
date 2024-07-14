@@ -27,7 +27,11 @@ export class FormService {
   }
 
   editOne = async (formId: string, editBody: EditBodyDto, userId: string): Promise<void> => {
-    return await this.formRepository.editOne(formId, editBody, userId)
+    return await this.formRepository.editOne(
+      formId,
+      { ...editBody, layout: this.transformArrayToHierarchy(editBody.layout) },
+      userId,
+    )
   }
 
   removeOne = async (formId: string, userId: string): Promise<void> => {
@@ -35,20 +39,24 @@ export class FormService {
   }
 
   private transformArrayToHierarchy(arr: LayoutItem[]): HierarchyLayout {
-    const hierarchy: HierarchyLayout = { root: { styles: {}, children: {}, attributes: {} } }
-    const elementsMap: Record<string, HierarchyLayoutNode> = { root: hierarchy.root }
+    try {
+      const hierarchy: HierarchyLayout = { root: { styles: {}, children: {}, attributes: {} } }
+      const elementsMap: Record<string, HierarchyLayoutNode> = { root: hierarchy.root }
 
-    for (const { name, parent, styles, attributes } of arr) {
-      const newItem: HierarchyLayoutNode = { styles, children: {}, attributes }
+      for (const { name, parent, styles, attributes } of arr) {
+        const newItem: HierarchyLayoutNode = { styles, children: {}, attributes }
 
-      if (!elementsMap[parent]) {
-        elementsMap[parent] = { styles: {}, children: {}, attributes: {} }
+        if (!elementsMap[parent]) {
+          elementsMap[parent] = { styles: {}, children: {}, attributes: {} }
+        }
+
+        elementsMap[parent].children[name] = newItem
+        elementsMap[name] = newItem
       }
 
-      elementsMap[parent].children[name] = newItem
-      elementsMap[name] = newItem
+      return hierarchy
+    } catch (err) {
+      throw err
     }
-
-    return hierarchy
   }
 }

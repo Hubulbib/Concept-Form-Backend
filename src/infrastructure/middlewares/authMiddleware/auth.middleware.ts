@@ -1,12 +1,12 @@
-import { type NextFunction, type Request, type Response } from 'express'
 import jwt from 'jsonwebtoken'
-import 'dotenv/config.js'
+import { type NextFunction, type Request, type Response } from 'express'
 import { ApiError } from '../../exceptions/api.exception'
+import 'dotenv/config.js'
 
 export const AuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
   try {
     const JWT_SECRET = process.env.SECRET_ACCESS_JWT
-    if (!req.headers.authorization) return res.status(401).end()
+    if (!req.headers.authorization) return next(ApiError.UnauthorizedError())
 
     const accessToken = req.headers?.authorization.split(' ')[1]
 

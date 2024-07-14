@@ -28,7 +28,6 @@ app.use('/api/form', formRouter)
 app.use('/api/answer', answerRouter)
 
 setupSwagger(app)
-
 app.use(ErrorMiddleware)
 
 app.listen(PORT, () => {

@@ -3,9 +3,9 @@ import { Form, formModel, HierarchyLayoutNode } from '../entities/form.entity.js
 import { AnswerRepositoryImpl } from './answer.repository.impl.js'
 import { type FormEntity, Question } from '../../../core/entities/form.entity.js'
 import { type FormRepository } from '../../../core/repositories/formRepository/form.repository.js'
-import { type EditBodyDto } from '../../../core/repositories/formRepository/dtos/edit-body.dto.js'
 import { HierarchyLayout, Layout } from '../../../core/entities/layout.entity.js'
 import { ApiError } from '../../exceptions/api.exception.js'
+import { tsUnix } from '../../utils/date.util'
 
 export class FormRepositoryImpl implements FormRepository {
   private readonly formRepository = formModel
@@ -72,7 +72,15 @@ export class FormRepositoryImpl implements FormRepository {
     })
   }
 
-  async editOne(formId: string, editBody: EditBodyDto, userId: string): Promise<void> {
+  async editOne(
+    formId: string,
+    editBody: {
+      layout: HierarchyLayout
+      questions?: Question[]
+      name?: string
+    },
+    userId: string,
+  ): Promise<void> {
     const form = await this.formRepository.findOne({ formId }).exec()
     if (!form) {
       throw ApiError.NotFound('Данная форма не существует')
@@ -83,6 +91,7 @@ export class FormRepositoryImpl implements FormRepository {
     for (const i in editBody) {
       form[i] = editBody[i]
     }
+    form.dates.updatedAt = tsUnix()
     await form.save()
   }
 
