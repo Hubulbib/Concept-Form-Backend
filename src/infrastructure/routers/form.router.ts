@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { AuthMiddleware } from '../middlewares/authMiddleware/auth.middleware'
 import { formController } from '../controllers/form.controller'
+import { FormValidator } from '../validators/form.validator'
 
 const router = Router()
 
@@ -109,7 +110,7 @@ router.get('/layout/:id', [], formController.getLayout)
  *       400:
  *         description: Bad request
  */
-router.post('/', [AuthMiddleware], formController.createOne)
+router.post('/', [AuthMiddleware, FormValidator.create], formController.createOne)
 
 /**
  * @swagger
@@ -142,7 +143,7 @@ router.post('/', [AuthMiddleware], formController.createOne)
  *       400:
  *         description: Bad request
  */
-router.put('/:id', [AuthMiddleware], formController.editOne)
+router.put('/:id', [AuthMiddleware, FormValidator.edit], formController.editOne)
 
 /**
  * @swagger

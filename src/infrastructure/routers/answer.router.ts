@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { answerController } from '../controllers/answer.controller.js'
+import { AnswerValidator } from '../validators/answer.validator'
 
 const router = Router()
 
@@ -32,6 +33,6 @@ const router = Router()
  *       401:
  *         description: Not authorized
  */
-router.post('/', [], answerController.createOne)
+router.post('/', [AnswerValidator.create], answerController.createOne)
 
 export const answerRouter = router
