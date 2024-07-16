@@ -14,7 +14,7 @@ const router = Router()
 
 /**
  * @swagger
- * /form:
+ * /forms:
  *   get:
  *     summary: Get all forms
  *     tags: [Forms]
@@ -34,7 +34,32 @@ router.get('/', [AuthMiddleware], formController.getAll)
 
 /**
  * @swagger
- * /form/{id}:
+ * /forms/{id}/layout:
+ *   get:
+ *     summary: Get layout by ID
+ *     tags: [Forms]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The layout ID
+ *     responses:
+ *       200:
+ *         description: The layout description by ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Layout'
+ *       404:
+ *         description: Layout not found
+ */
+router.get('/:id/layout', [], formController.getLayout)
+
+/**
+ * @swagger
+ * /forms/{id}:
  *   get:
  *     summary: Get a form by ID
  *     tags: [Forms]
@@ -63,32 +88,7 @@ router.get('/:id', [AuthMiddleware], formController.getOneById)
 
 /**
  * @swagger
- * /form/layout/{id}:
- *   get:
- *     summary: Get layout by ID
- *     tags: [Forms]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: The layout ID
- *     responses:
- *       200:
- *         description: The layout description by ID
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Layout'
- *       404:
- *         description: Layout not found
- */
-router.get('/layout/:id', [], formController.getLayout)
-
-/**
- * @swagger
- * /form:
+ * /forms:
  *   post:
  *     summary: Create a new form
  *     tags: [Forms]
@@ -114,7 +114,7 @@ router.post('/', [AuthMiddleware, FormValidator.create], formController.createOn
 
 /**
  * @swagger
- * /form/{id}:
+ * /forms/{id}:
  *   put:
  *     summary: Update a form by ID
  *     tags: [Forms]
@@ -147,7 +147,7 @@ router.put('/:id', [AuthMiddleware, FormValidator.edit], formController.editOne)
 
 /**
  * @swagger
- * /form/{id}:
+ * /forms/{id}:
  *   delete:
  *     summary: Remove a form by ID
  *     tags: [Forms]

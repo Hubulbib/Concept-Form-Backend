@@ -24,8 +24,8 @@ app.use(
 // http://localhost:3000
 
 // API
-app.use('/api/form', formRouter)
-app.use('/api/answer', answerRouter)
+app.use('/api/forms', formRouter)
+app.use('/api/answers', answerRouter)
 
 setupSwagger(app)
 app.use(ErrorMiddleware)

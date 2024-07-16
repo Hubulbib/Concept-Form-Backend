@@ -13,7 +13,7 @@ const router = Router()
 
 /**
  * @swagger
- * /answer:
+ * /answers:
  *   post:
  *     summary: Create a new answer
  *     tags: [Answers]
