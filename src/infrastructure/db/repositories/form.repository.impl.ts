@@ -11,7 +11,12 @@ export class FormRepositoryImpl implements FormRepository {
   private readonly formRepository = formModel
 
   async getOneById(formId: string, userId: string): Promise<Omit<FormEntity, 'layout'>> {
-    const form = await this.formRepository.findOne({ formId }).exec()
+    const formById = await this.formRepository.findOne({ formId })
+    const formByName = await this.formRepository.findOne({ name: formId })
+    if (!formById && !formByName) {
+      throw ApiError.NotFound('Данная форма не существует')
+    }
+    const form = formById || formByName
     if (!form) {
       throw ApiError.NotFound('Данная форма не существует')
     }
