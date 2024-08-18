@@ -1,7 +1,9 @@
 import { NextFunction, type Request, type Response } from 'express'
+import { validationResult } from 'express-validator'
 import { FormService } from '../../core/services/form.service.js'
 import { FormRepositoryImpl } from '../db/repositories/form.repository.impl.js'
 import { type IAuthRequest } from '../interfaces/auth.request.interface.js'
+import { ApiError } from '../exceptions/api.exception'
 
 class FormController {
   constructor(readonly formService: FormService) {}
@@ -37,6 +39,10 @@ class FormController {
 
   createOne = async (req: IAuthRequest, res: Response, next: NextFunction) => {
     try {
+      const errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        return next(ApiError.BadRequest('Ошибка данных', errors.array()))
+      }
       const formBody = req.body
       const formData = await this.formService.createOne({ ...formBody, userId: req.auth.user.uuid })
       res.status(201).json(formData)
@@ -47,6 +53,10 @@ class FormController {
 
   editOne = async (req: IAuthRequest, res: Response, next: NextFunction) => {
     try {
+      const errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        return next(ApiError.BadRequest('Ошибка данных', errors.array()))
+      }
       const { id } = req.params
       const formBody = req.body
       await this.formService.editOne(id, formBody, req.auth.user.uuid)
