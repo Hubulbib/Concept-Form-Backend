@@ -5,7 +5,6 @@ import { FormEntityWithoutLayout } from './formEntityWithoutLayout.schema'
 import { HierarchyLayoutNode } from './hierarchyLayoutNode.schema'
 import { Layout } from './layout.schema'
 import { LayoutItem } from './layoutItem.schema'
-import { Question } from './question.schema'
 import { AnswerList } from './answerList.schema'
 import { AnswerCreateBodyDto } from './answer.createBodyDto.schema'
 import { FormEditBodyDto } from './form.editBodyDto.schema'
@@ -18,7 +17,6 @@ export {
   FormEntity,
   HierarchyLayoutNode,
   FormCreateBodyDto,
-  Question,
   FormEntityWithoutLayout,
   AnswerCreateBodyDto,
   FormEditBodyDto,

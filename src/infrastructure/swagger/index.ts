@@ -12,7 +12,6 @@ import {
   HierarchyLayoutNode,
   Layout,
   LayoutItem,
-  Question,
 } from './schemas'
 
 const options = {
@@ -29,7 +28,6 @@ const options = {
         FormEntity,
         FormCreateBodyDto,
         LayoutItem,
-        Question,
         AnswerEntity,
         AnswerList,
         Layout,

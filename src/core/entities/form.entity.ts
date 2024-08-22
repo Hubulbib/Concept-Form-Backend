@@ -6,17 +6,9 @@ export class FormEntity {
     readonly formId: string,
     readonly userId: string,
     readonly layout: Layout,
-    readonly questions: Question[],
     readonly answers: AnswerEntity[],
     readonly createdAt: Date,
     readonly updatedAt: Date,
     readonly name?: string,
-  ) {}
-}
-
-export class Question {
-  constructor(
-    readonly number: number,
-    readonly text: string,
   ) {}
 }

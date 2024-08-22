@@ -8,13 +8,6 @@ export const FormEditBodyDto = {
       },
       nullable: true,
     },
-    questions: {
-      type: 'array',
-      items: {
-        $ref: '#/components/schemas/Question',
-      },
-      nullable: true,
-    },
     name: {
       type: 'string',
       description: 'Form name',

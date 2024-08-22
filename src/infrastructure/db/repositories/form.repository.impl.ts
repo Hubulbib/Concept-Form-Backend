@@ -1,7 +1,7 @@
 import { FormMapper } from '../mappers/form.mapper.js'
 import { Form, formModel, HierarchyLayoutNode } from '../entities/form.entity.js'
 import { AnswerRepositoryImpl } from './answer.repository.impl.js'
-import { type FormEntity, Question } from '../../../core/entities/form.entity.js'
+import { type FormEntity } from '../../../core/entities/form.entity.js'
 import { type FormRepository } from '../../../core/repositories/formRepository/form.repository.js'
 import { HierarchyLayout, Layout } from '../../../core/entities/layout.entity.js'
 import { ApiError } from '../../exceptions/api.exception.js'
@@ -59,16 +59,10 @@ export class FormRepositoryImpl implements FormRepository {
     }
   }
 
-  async createOne(createBody: {
-    layout: HierarchyLayout
-    questions: Question[]
-    userId: string
-    name?: string
-  }): Promise<FormEntity> {
+  async createOne(createBody: { layout: HierarchyLayout; userId: string; name?: string }): Promise<FormEntity> {
     const form = await this.formRepository.create({
       userId: createBody.userId,
       layout: createBody.layout,
-      questions: createBody.questions,
       name: createBody.name,
     })
     return FormMapper.toDomain({
@@ -81,7 +75,6 @@ export class FormRepositoryImpl implements FormRepository {
     formId: string,
     editBody: {
       layout: HierarchyLayout
-      questions?: Question[]
       name?: string
     },
     userId: string,
@@ -120,7 +113,6 @@ export class FormRepositoryImpl implements FormRepository {
       formId: form.formId,
       userId: form.userId,
       layout: form.layout,
-      questions: form.questions,
       dates: form.dates,
       name: form.name,
     }

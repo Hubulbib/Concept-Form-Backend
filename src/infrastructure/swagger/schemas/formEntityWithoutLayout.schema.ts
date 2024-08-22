@@ -9,12 +9,6 @@ export const FormEntityWithoutLayout = {
       type: 'string',
       description: 'User ID',
     },
-    questions: {
-      type: 'array',
-      items: {
-        $ref: '#/components/schemas/Question',
-      },
-    },
     answers: {
       type: 'array',
       items: {

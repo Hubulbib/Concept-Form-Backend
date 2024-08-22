@@ -21,8 +21,6 @@ app.use(
   }),
 )
 
-// http://localhost:3000
-
 // API
 app.use('/api/forms', formRouter)
 app.use('/api/answers', answerRouter)

@@ -8,7 +8,6 @@ export class FormMapper {
       entity.formId,
       entity.userId,
       entity.layout,
-      entity.questions,
       entity.answers,
       new Date(entity.dates.createdAt),
       new Date(entity.dates.updatedAt),

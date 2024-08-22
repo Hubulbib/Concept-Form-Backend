@@ -20,15 +20,6 @@ class Layout {
   root: HierarchyLayoutNode
 }
 
-@modelOptions({ schemaOptions: { _id: false } })
-class Question {
-  @prop({ type: Number, required: true })
-  number: number
-
-  @prop({ type: String, required: true })
-  text: string
-}
-
 class BaseDates {
   @prop({ type: Number, default: () => tsUnix() })
   createdAt: number
@@ -50,9 +41,6 @@ export class Form {
 
   @prop({ type: () => Layout, default: { root: { styles: {}, children: {}, attributes: {} } }, required: true })
   layout: Layout
-
-  @prop({ type: () => [Question], default: [], required: true })
-  questions: Question[]
 
   @prop({ type: () => [String], default: [], required: true })
   answers: string[]

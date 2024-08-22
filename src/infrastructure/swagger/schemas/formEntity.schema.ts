@@ -12,12 +12,6 @@ export const FormEntity = {
     layout: {
       $ref: '#/components/schemas/Layout',
     },
-    questions: {
-      type: 'array',
-      items: {
-        $ref: '#/components/schemas/Question',
-      },
-    },
     answers: {
       type: 'array',
       items: {
