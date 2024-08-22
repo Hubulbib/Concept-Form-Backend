@@ -4,8 +4,8 @@ import { genUuid } from '../../utils/generate.util.js'
 
 @modelOptions({ schemaOptions: { _id: false } })
 class AnswerList {
-  @prop({ type: Number, required: true })
-  number: number
+  @prop({ type: String, default: () => genUuid(), unique: true })
+  number: string
 
   @prop({ type: String, required: true })
   text: string

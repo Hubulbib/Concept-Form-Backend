@@ -2,8 +2,8 @@ export const AnswerList = {
   type: 'object',
   properties: {
     number: {
-      type: 'integer',
-      description: 'Answer number',
+      type: 'string',
+      description: 'Answer id',
     },
     text: {
       type: 'string',

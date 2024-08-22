@@ -8,7 +8,7 @@ export class AnswerEntity {
 
 export class AnswerList {
   constructor(
-    readonly number: number,
+    readonly number: string,
     readonly text: string,
   ) {}
 }
